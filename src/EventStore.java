@@ -20,7 +20,7 @@ public class EventStore {
         return list.indexOf(event);
     }
 
-    class EventComparator implements Comparator {
+    class EventComparator implements Comparator<CalendarEvent> {
 
         @Override
         public int compare(CalendarEvent o1, CalendarEvent o2) {
@@ -30,8 +30,6 @@ public class EventStore {
             }
             return result;
         }
-
-
     }
 
     @Override
@@ -45,7 +43,7 @@ public class EventStore {
         CalendarEvent event;
         Collections.sort(list, new EventComparator());
         try {
-            return list.get(Collections.binarySearch(list, new CalendarEvent.setTitle(title),
+            return list.get(Collections.binarySearch(list, new CalendarEvent.Builder().setTitle(title).setDescription("").build(),
                     new EventComparator()));
         } catch (Exception e) {
             return null;
@@ -55,6 +53,6 @@ public class EventStore {
     public CalendarEvent getEvent(String title, String description) {
         CalendarEvent event;
         Collections.sort(list, new EventComparator());
-        return list.get(Collections.binarySearch(list, new CalendarEvent.setTitle(title).setDescription(description), new EventComparator()));
+        return list.get(Collections.binarySearch(list, new CalendarEvent.Builder().setTitle(title).setDescription(description).build(), new EventComparator()));
     }
 }
