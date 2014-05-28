@@ -21,7 +21,7 @@ public class EventStore {
     }
 
     class EventComparator implements Comparator {
-              
+
         @Override
         public int compare(CalendarEvent o1, CalendarEvent o2) {
             int result = o1.getTitle().compareTo(o2.getTitle());
